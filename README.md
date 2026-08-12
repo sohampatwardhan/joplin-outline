@@ -1,3 +1,6 @@
+> [!NOTE]
+> This is a fork of [cqroot/joplin-outline](https://github.com/cqroot/joplin-outline), maintained by [@sohampatwardhan](https://github.com/sohampatwardhan). All credit for the original plugin goes to [cqroot](https://github.com/cqroot) and its contributors. This fork adds support for outlining HTML-format notes (see Features below).
+
 <div align="center">
   <h1>Joplin Outline Plugin</h1>
   <i>This is a outline plugin for <a href="https://github.com/laurent22/joplin">Joplin</a>. Refer to <a href="https://github.com/laurent22/joplin/tree/dev/packages/app-cli/tests/support/plugins/toc/">joplin toc</a>.</i>
@@ -20,7 +23,7 @@
   <hr>
 </div>
 
-> **Note:** This is a fork of [cqroot/joplin-outline](https://github.com/cqroot/joplin-outline), maintained by [@sohampatwardhan](https://github.com/sohampatwardhan). All credit for the original plugin goes to [cqroot](https://github.com/cqroot) and its contributors. This fork adds support for outlining HTML-format notes (see Features below).
+
 
 ![screenshot](.github/screenshot.png)
 
