@@ -20,6 +20,8 @@
   <hr>
 </div>
 
+> **Note:** This is a fork of [cqroot/joplin-outline](https://github.com/cqroot/joplin-outline), maintained by [@sohampatwardhan](https://github.com/sohampatwardhan). All credit for the original plugin goes to [cqroot](https://github.com/cqroot) and its contributors. This fork adds support for outlining HTML-format notes (see Features below).
+
 ![screenshot](.github/screenshot.png)
 
 ## Features
@@ -31,6 +33,7 @@
 - Support custom style.
 - Support adding custom symbols before headings. 
 - Support jumping to header in Editor Mode. (contributed by [@jerrylususu](https://github.com/jerrylususu/joplin-outline))
+- Support headers in HTML-format notes (`<h1>`-`<h6>`), not just Markdown, including literal HTML headers embedded in a Markdown note. Clicking through to a header scrolls correctly when the source HTML provides an anchor id near the heading.
 
 ## Documentation
 
@@ -67,6 +70,10 @@ For that reason, it's generally best not to change any of the framework files or
 [A markdown outline sidebar plugin for Joplin](https://discourse.joplinapp.org/t/a-markdown-outline-sidebar-plugin-for-joplin/13364)
 
 [Toc as the sidebar](https://discourse.joplinapp.org/t/toc-as-the-sidebar/5979/64)
+
+## Credits
+
+Originally created by [cqroot](https://github.com/cqroot) as [cqroot/joplin-outline](https://github.com/cqroot/joplin-outline). This fork is maintained by [@sohampatwardhan](https://github.com/sohampatwardhan).
 
 ## Contributors
 
