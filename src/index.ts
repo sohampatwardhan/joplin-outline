@@ -45,13 +45,21 @@ joplin.plugins.register({
 
     await panels.onMessage(view, async (message: any) => {
       if (message.name === 'scrollToHeader') {
-        // scroll in WYSIWYG editor or viewer
-        await joplin.commands.execute('scrollToHash', message.hash);
-        // scroll in raw markdown editor
-        await joplin.commands.execute('editor.execCommand', {
-          name: 'scrollToLine',
-          args: [parseInt(message.lineno, 10)],
-        });
+        const isMarkdown = !!(await joplin.settings.globalValue('editor.codeView'));
+        const panes = await joplin.settings.globalValue('noteVisiblePanes') as string[];
+        const editorVisible = panes.includes('editor');
+        const hash = !isMarkdown && message.hash === 'rendered-md' ? 'tinymce' : message.hash;
+
+        if (isMarkdown && editorVisible) {
+          // Markdown editor: use scrollToLine command (viewer follows editor scroll in split view)
+          await joplin.commands.execute('editor.execCommand', {
+            name: 'scrollToLine',
+            args: [parseInt(message.lineno, 10)],
+          });
+        } else {
+          // Viewer-only Markdown or Rich Text Editor: use built in scrollToHash command
+          await joplin.commands.execute('scrollToHash', hash);
+        }
       } else if (message.name === 'contextMenu') {
         const noteId = (await joplin.workspace.selectedNoteIds())[0];
         const noteTitle = (await joplin.data.get(['notes', noteId], { fields: ['title'] })).title;
@@ -112,13 +120,26 @@ joplin.plugins.register({
         }
       },
     });
+    await joplin.commands.register({
+      name: 'toggleOutlineCollapse',
+      label: 'Toggle outline collapse all',
+      iconName: 'fas fa-chevron-up',
+      execute: async () => {
+        panels.postMessage(view, { name: 'toggleAll' });
+      },
+    });
     await joplin.views.toolbarButtons.create('toggleOutline', 'toggleOutline', ToolbarButtonLocation.NoteToolbar);
     await joplin.views.menus.create('outlineMenu', 'Outline', [
       {
         label: 'toggleOutline',
         commandName: 'toggleOutline',
       },
+      {
+        label: 'Toggle outline collapse all',
+        commandName: 'toggleOutlineCollapse',
+      },
     ], MenuItemLocation.Tools);
     await joplin.views.menuItems.create('outlineMenuItem', 'toggleOutline', MenuItemLocation.EditorContextMenu);
+    await joplin.views.menuItems.create('outlineCollapseMenuItem', 'toggleOutlineCollapse', MenuItemLocation.EditorContextMenu);
   },
 });
